@@ -1,35 +1,62 @@
 -- init.sql
 
--- Criar extensão para suportar UUIDs, se ainda não estiver ativada
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- Comandos SQL para tabela no Supabase
 
--- Criar tabela de usuários com UUID como chave primária
-CREATE TABLE IF NOT EXISTS users (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name VARCHAR(100) NOT NULL,
-  email VARCHAR(100) UNIQUE NOT NULL
+-- Criar tabela de Usuários
+CREATE TABLE client (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(40) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    role VARCHAR(20) CHECK (role IN ('user', 'admin'))
 );
 
--- Inserir 20 usuários com nomes e emails aleatórios
-INSERT INTO users (name, email)
-VALUES 
-  ('Alice Smith', 'alice.smith@example.com'),
-  ('Bob Johnson', 'bob.johnson@example.com'),
-  ('Carol Williams', 'carol.williams@example.com'),
-  ('David Jones', 'david.jones@example.com'),
-  ('Emma Brown', 'emma.brown@example.com'),
-  ('Frank Davis', 'frank.davis@example.com'),
-  ('Grace Wilson', 'grace.wilson@example.com'),
-  ('Henry Moore', 'henry.moore@example.com'),
-  ('Isabella Taylor', 'isabella.taylor@example.com'),
-  ('Jack Lee', 'jack.lee@example.com'),
-  ('Kate Clark', 'kate.clark@example.com'),
-  ('Liam Martinez', 'liam.martinez@example.com'),
-  ('Mia Rodriguez', 'mia.rodriguez@example.com'),
-  ('Noah Garcia', 'noah.garcia@example.com'),
-  ('Olivia Hernandez', 'olivia.hernandez@example.com'),
-  ('Patrick Martinez', 'patrick.martinez@example.com'),
-  ('Quinn Lopez', 'quinn.lopez@example.com'),
-  ('Rose Thompson', 'rose.thompson@example.com'),
-  ('Samuel Perez', 'samuel.perez@example.com'),
-  ('Tara Scott', 'tara.scott@example.com');
+-- Criar tabela de Salas
+CREATE TABLE room (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(40) NOT NULL,
+    capacity INT,
+    location VARCHAR(100),
+    available BOOLEAN DEFAULT TRUE
+);
+
+-- Criar tabela de Locação
+CREATE TABLE booking (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    client_id UUID REFERENCES client(id),
+    room_id UUID REFERENCES room(id),
+    date DATE,
+    start_time TIME,
+    end_time TIME,
+    status VARCHAR(20)
+);
+
+-- Inserir clientes
+INSERT INTO client (name, email, password, role) VALUES
+('Eduardo Casarini', 'user@example.com', 'senha123', 'user'),
+('João da Silva', 'admin@example.com', 'admin123', 'admin');
+
+-- Inserir salas
+INSERT INTO room (name, capacity, location, available) VALUES
+('Sala Reunião A', 10, 'Andar 1', TRUE),
+('Sala São Paulo', 40, 'Térreo', FALSE);
+
+-- Inserir reservas
+INSERT INTO booking (client_id, room_id, date, start_time, end_time, status)
+VALUES
+(
+  (SELECT id FROM client WHERE email = 'user@example.com'),
+  (SELECT id FROM room WHERE name = 'Sala Reunião A'),
+  '09-05-2025',
+  '09:00',
+  '10:00',
+  'confirmada'
+),
+(
+  (SELECT id FROM client WHERE email = 'admin@example.com'),
+  (SELECT id FROM room WHERE name = 'Sala São Paulo'),
+  '12-05-2025',
+  '14:00',
+  '16:00',
+  'recusada'
+); 

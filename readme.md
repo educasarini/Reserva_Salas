@@ -1,11 +1,23 @@
-# Boilerplate MVC em Node.js com PostgreSQL
+# Inteli - Instituto de Tecnologia e Liderança
 
-Este projeto é um boilerplate básico para uma aplicação Node.js seguindo o padrão MVC (Model-View-Controller), utilizando PostgreSQL como banco de dados.
+<p align="center">
+<a href= "https://www.inteli.edu.br/"><img src="assets/docs/readme/inteli.png" alt="Inteli - Instituto de Tecnologia e Liderança" border="0" width=40% height=40%></a>
+</p>
+
+<br>
+
+# Sistema de reserva de salas
+
+Este projeto consiste no desenvolvimento de um sistema web para reserva de salas, criado como parte do Projeto Individual do módulo 2025-1B. O objetivo principal é aplicar, de forma prática, os conhecimentos adquiridos em backend com Node.js e Express.js, seguindo o padrão arquitetural MVC (Model-View-Controller). O sistema permite que usuários consultem salas disponíveis, realizem reservas em datas e horários específicos, e acompanhem o status de suas solicitações.
+
+A estrutura do projeto foi pensada para garantir organização, escalabilidade e facilidade de manutenção. O backend é desenvolvido com Node.js, utilizando Express.js para criação das rotas e lógica de servidor, e EJS como motor de visualização para renderização das páginas. O banco de dados segue um modelo relacional, projetado com três entidades principais: users, rooms e bookings, refletindo os principais fluxos de uso do sistema.
+
+Este repositório contém o código-fonte completo, diagramas, instruções para execução local e arquivos de documentação. O projeto também serve como portfólio técnico, demonstrando a capacidade de desenvolver aplicações completas com integração entre frontend, backend e banco de dados.
 
 ## Requisitos
 
-- Node.js (versão X.X.X)
-- PostgreSQL (versão X.X.X)
+- Node.js (versão 22.15.0)
+- PostgreSQL (versão 17.0)
 
 ## Instalação
 
@@ -21,36 +33,35 @@ Este projeto é um boilerplate básico para uma aplicação Node.js seguindo o p
 ```bash
 npm install
 ```
-    
-3. **Configurar o arquivo `.env`:**
-    
-Renomeie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente necessárias, como as configurações do banco de dados PostgreSQL.
-    
 
-Configuração do Banco de Dados
-------------------------------
+## Execução
 
-1. **Criar banco de dados:**
-    
-    Crie um banco de dados PostgreSQL com o nome especificado no seu arquivo `.env`.
-    
-2. **Executar o script SQL de inicialização:**
-    
+1. **Inicie o servidor com o comando:**
+
 ```bash
-npm run init-db
+   node server.js
 ```
-    
-Isso criará a tabela `users` no seu banco de dados PostgreSQL com UUID como chave primária e inserirá alguns registros de exemplo.
-    
 
-Funcionalidades
+2. **Se estiver tudo certo, você verá no terminal:**
+
+```bash
+   Servidor rodando na porta 3000
+```
+
+3. **Acesse no seu navegador:**
+
+```bash
+   http://localhost:3000
+```
+
+Funcionalidades Previstas
 ---------------
 
-* **Padrão MVC:** Estrutura organizada em Model, View e Controller.
-* **PostgreSQL:** Banco de dados relacional utilizado para persistência dos dados.
-* **UUID:** Utilização de UUID como chave primária na tabela `users`.
-* **Scripts com `nodemon`:** Utilização do `nodemon` para reiniciar automaticamente o servidor após alterações no código.
-* **Testes:** Inclui estrutura básica para testes automatizados.
+- Cadastro e autenticação de usuários
+- Consulta de salas disponíveis
+- Realização de reservas com data e horário
+- Visualização de status da reserva
+- Painel administrativo para controle das reservas 
 
 Scripts Disponíveis
 -------------------
@@ -62,6 +73,33 @@ Scripts Disponíveis
 
 Estrutura de Diretórios
 -----------------------
+```
+ponderada_Bryan/
+│
+├── config/                # Arquivos de configuração (ex: conexão com banco)
+│   └── database.js
+├── controllers/           # Lógica de controle das requisições
+│   └── HomeController.js
+├── models/                # Definição de modelos de dados (estrutura do banco)
+│   └── User.js
+├── routes/                # Definição das rotas do sistema
+│   └── index.js
+├── services/              # Serviços auxiliares do sistema
+│   └── userService.js
+├── assets/                # Arquivos públicos como imagens e fontes
+├── scripts/               # Arquivos de JavaScript públicos
+├── styles/                # Arquivos CSS públicos
+├── tests/                 # Arquivos de testes unitários
+│   └── example.test.js
+├── .gitignore             # Arquivo para ignorar arquivos no Git
+├── .env.example           # Arquivo de exemplo para variáveis de ambiente
+├── jest.config.js         # Arquivo de configuração do Jest
+├── package-lock.json      # Gerenciador de dependências do Node.js
+├── package.json           # Gerenciador de dependências do Node.js
+├── readme.md              # Documentação do projeto (Markdown)
+├── server.js              # Arquivo principal que inicializa o servidor
+└── rest.http              # Teste de endpoints (opcional)
+```
 
 * **`config/`**: Configurações do banco de dados e outras configurações do projeto.
 * **`controllers/`**: Controladores da aplicação (lógica de negócio).
@@ -80,4 +118,4 @@ Licença
 
 Este projeto está licenciado sob a Licença MIT.
 
-Este README.md fornece uma visão geral clara do boilerplate, incluindo instruções de instalação, configuração do banco de dados, funcionalidades principais, scripts disponíveis, estrutura de diretórios, como contribuir e informações de licença. Certifique-se de personalizar as seções com detalhes específicos do seu projeto conforme necessário.
+Este README.md fornece uma visão geral clara do boilerplate, incluindo instruções de instalação, instruções de execução, funcionalidades principais, scripts disponíveis, estrutura de diretórios, como contribuir e informações de licença. 
