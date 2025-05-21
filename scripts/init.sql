@@ -2,6 +2,9 @@
 
 -- Comandos SQL para tabela no Supabase
 
+-- Cria extensão para suportar UUIDs, se ainda não estiver ativa
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- Criar tabela de Usuários
 CREATE TABLE client (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
