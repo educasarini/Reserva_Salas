@@ -11,7 +11,7 @@ CREATE TYPE client_role AS ENUM('user', 'admin');
 CREATE TABLE client (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(40) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
     role client_role DEFAULT 'user'
 );
@@ -20,8 +20,8 @@ CREATE TABLE client (
 CREATE TABLE room (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(40) NOT NULL,
-    capacity INT,
-    location VARCHAR(100),
+    capacity INT NOT NULL,
+    location VARCHAR(100) NOT NULL,
     available BOOLEAN DEFAULT TRUE
 );
 
