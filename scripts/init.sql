@@ -3,8 +3,9 @@
 -- Cria extensão para suportar UUIDs, se ainda não estiver ativa
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- Criar tipo ENUM para status das reservas
+-- Criar tipo ENUM para status das reservas e cargo dos usuários
 CREATE TYPE booking_status AS ENUM ('confirmada', 'pendente', 'recusada');
+CREATE TYPE client_role AS ENUM('user', 'admin');
 
 -- Criar tabela de Usuários
 CREATE TABLE client (
@@ -12,7 +13,7 @@ CREATE TABLE client (
     name VARCHAR(40) NOT NULL,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    role VARCHAR(20) CHECK (role IN ('user', 'admin'))
+    role client_role DEFAULT 'user'
 );
 
 -- Criar tabela de Salas
