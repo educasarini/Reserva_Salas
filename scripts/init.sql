@@ -1,9 +1,10 @@
 -- init.sql
 
--- Comandos SQL para tabela no Supabase
-
 -- Cria extensão para suportar UUIDs, se ainda não estiver ativa
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- Criar tipo ENUM para status das reservas
+CREATE TYPE booking_status AS ENUM ('confirmada', 'pendente', 'recusada');
 
 -- Criar tabela de Usuários
 CREATE TABLE client (
@@ -31,7 +32,7 @@ CREATE TABLE booking (
     date DATE,
     start_time TIME,
     end_time TIME,
-    status VARCHAR(20)
+    status booking_status
 );
 
 -- Inserir clientes
