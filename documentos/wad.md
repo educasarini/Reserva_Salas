@@ -1,4 +1,8 @@
+<div align="center">
+
 <img src="../assets/docs/readme/inteli.png">
+
+</div>
 
 # WAD - Web Application Document - Reserva de Salas - Inteli
 
@@ -28,7 +32,7 @@
 
 <br>
 
-# <a name="c1"></a>1. Introdução (sprints 1 a 5)
+# <a name="c1"></a>1. Introdução
 
 Este documento WAD (Web Application Documentation) tem como objetivo registrar as decisões técnicas, estruturais e funcionais adotadas no desenvolvimento do projeto individual.
 
@@ -36,13 +40,13 @@ O projeto consiste na construção de um sistema web de reserva de salas, que pe
 
 A aplicação foi desenvolvida utilizando _Node.js_ com o framework _Express.js_, empregando o padrão de arquitetura MVC (Model-View-Controller) para garantir uma separação clara de responsabilidades entre dados, interface e lógica de controle. As views foram construídas com o motor de template _EJS_, possibilitando a geração dinâmica de páginas _HTML_ com base nas informações do banco de dados.
 
-O sistema utiliza um banco de dados PostgreSQL hospedado no _Supabase_, responsável por armazenar as informações de usuários (client), salas (room) e reservas (booking). A integração com o banco foi feita por meio da biblioteca pg, com as credenciais de acesso gerenciadas de forma segura via variáveis de ambiente definidas em um arquivo .env.
+O sistema utiliza um banco de dados _PostgreSQL_ hospedado no _Supabase_, responsável por armazenar as informações de usuários (client), salas (room) e reservas (booking). A integração com o banco foi feita por meio da biblioteca pg, com as credenciais de acesso gerenciadas de forma segura via variáveis de ambiente definidas em um arquivo .env.
 
 Este WAD foi estruturado para servir como guia técnico do projeto, facilitando a compreensão do sistema por avaliadores, colaboradores e qualquer pessoa que deseje manter ou evoluir a aplicação.
 
 # <a name="c2"></a>2. Diagrama do Banco de Dados
 
-O diagrama de banco de dados é uma representação visual da estrutura lógica das informações que serão manipuladas pela aplicação. Ele é essencial para entender como os dados se organizam, se relacionam e sustentam as funcionalidades do sistema. Através da modelagem, é possível garantir a integridade, consistência e escalabilidade da base de dados desde as primeiras etapas do desenvolvimento.
+O diagrama do banco de dados é uma representação visual da estrutura lógica das informações que serão manipuladas pela aplicação. Ele é essencial para entender como os dados se organizam, se relacionam e sustentam as funcionalidades do sistema. Através da modelagem, é possível garantir a integridade, consistência e escalabilidade da base de dados desde as primeiras etapas do desenvolvimento.
 
 No contexto deste projeto — um sistema web de reserva de salas — o diagrama foi planejado para representar de forma clara e eficiente os principais elementos da aplicação: usuários, salas e reservas. A proposta do sistema é permitir que usuários realizem reservas de salas com data e horário definidos, garantindo que os dados dessas interações fiquem devidamente registrados, rastreáveis e organizados.
 
@@ -64,7 +68,7 @@ Abaixo está o diagrama entidade-relacionamento (ER) criado para representar ess
 
 <div align="center">
 
-<sub>Figura 1: Análise das 5 Forças de Porter</sub>
+<sub>Figura 1: Diagrama-ER</sub>
 
 <img src="../assets/docs/wad/diagrama-ER.svg">
 
