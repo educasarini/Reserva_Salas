@@ -39,7 +39,7 @@ const createClient = async (name, email, password, role) => {
 const updateClient = async (id, name, email, password, role) => {
   try {
     const result = await db.query(
-      'UPDATE client SET name = $1, email = $2, password = $3, role = $4 WHERE id = $6 RETURNING *',
+      'UPDATE client SET name = $1, email = $2, password = $3, role = $4 WHERE id = $5 RETURNING *',
       [name, email, password, role, id]
     );
     return result.rows[0];
