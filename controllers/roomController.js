@@ -2,7 +2,7 @@
 
 const roomService = require('../services/roomService');
 
-const getAllRoom = async (req, res) => {
+const getAllRooms = async (req, res) => {
   try {
     const rooms = await roomService.getAllRooms();
     res.status(200).json(rooms);
@@ -62,7 +62,7 @@ const deleteRoom = async (req, res) => {
 };
 
 module.exports = {
-  getAllRoom,
+  getAllRooms,
   getRoomById,
   createRoom,
   updateRoom,
