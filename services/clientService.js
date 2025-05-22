@@ -23,38 +23,38 @@ const getClientById = async (id) => {
 };
 
 // Função para criar um novo usuário
-const createClient = async (name, email) => {
+const createClient = async (name, email, password, role) => {
   try {
     const result = await db.query(
-      'INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *',
-      [name, email]
+      'INSERT INTO client (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *',
+      [name, email, password, role]
     );
     return result.rows[0];
   } catch (error) {
-    throw new Error('Erro ao criar usuário: ' + error.message);
+    throw new Error('Erro ao criar cliente: ' + error.message);
   }
 };
 
 // Função para atualizar um usuário por ID
-const updateClient = async (id, name, email) => {
+const updateClient = async (id, name, email, password, role) => {
   try {
     const result = await db.query(
-      'UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *',
-      [name, email, id]
+      'UPDATE client SET name = $1, email = $2, password = $3, role = $4 WHERE id = $6 RETURNING *',
+      [name, email, password, role, id]
     );
     return result.rows[0];
   } catch (error) {
-    throw new Error('Erro ao atualizar usuário: ' + error.message);
+    throw new Error('Erro ao atualizar cliente: ' + error.message);
   }
 };
 
 // Função para deletar um usuário por ID
 const deleteClient = async (id) => {
   try {
-    const result = await db.query('DELETE FROM users WHERE id = $1 RETURNING *', [id]);
+    const result = await db.query('DELETE FROM client WHERE id = $1 RETURNING *', [id]);
     return result.rows[0];
   } catch (error) {
-    throw new Error('Erro ao deletar usuário: ' + error.message);
+    throw new Error('Erro ao deletar cliente: ' + error.message);
   }
 };
 
