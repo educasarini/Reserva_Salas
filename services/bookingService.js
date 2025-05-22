@@ -3,7 +3,7 @@
 const db = require('../config/db');
 
 // Função para obter todos as reservas
-const getAllBooking = async () => {
+const getAllBookings = async () => {
   try {
     const result = await db.query('SELECT * FROM booking');
     return result.rows;
@@ -59,7 +59,7 @@ const deleteBooking = async (id) => {
 };
 
 module.exports = {
-  getAllBooking,
+  getAllBookings,
   getBookingById,
   createBooking,
   updateBooking,
