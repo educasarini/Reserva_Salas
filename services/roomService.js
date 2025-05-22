@@ -1,4 +1,4 @@
-// services/clientService.js
+// services/roomService.js
 
 const db = require('../config/db');
 
