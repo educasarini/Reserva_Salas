@@ -52,11 +52,11 @@ No contexto deste projeto — um sistema web de reserva de salas — o diagrama 
 
 A modelagem foi construída com base nas seguintes entidades:
 
-**client**: representa os usuários da aplicação. Cada cliente pode ser um usuário comum ou um administrador, com acesso diferenciado no sistema.
+- `client` : representa os usuários da aplicação. Cada cliente pode ser um usuário comum ou um administrador, com acesso diferenciado no sistema.
 
-**room**: representa as salas disponíveis para reserva, com informações como nome, capacidade, localização e disponibilidade.
+- `room` : representa as salas disponíveis para reserva, com informações como nome, capacidade, localização e disponibilidade.
 
-**booking**: representa as reservas realizadas, ligando um usuário a uma sala em um intervalo de tempo específico, com status definido.
+- `booking` : representa as reservas realizadas, ligando um usuário a uma sala em um intervalo de tempo específico, com status definido.
 
 Essas entidades se relacionam por meio de chaves estrangeiras, compondo dois relacionamentos do tipo 1:N (um para muitos):
 
