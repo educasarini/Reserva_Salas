@@ -13,8 +13,11 @@ db.connect()
 
     app.use(express.json());
 
-    const userRoutes = require('./routes/clientRoutes');
-    app.use('/clients', userRoutes);
+    const clientRoutes = require('./routes/clientRoutes');
+    app.use('/clients', clientRoutes);
+
+    const roomRoutes = require('./routes/roomRoutes'); 
+    app.use('/rooms', roomRoutes);                     
     
     const bookingRoutes = require('./routes/bookingRoutes');
     app.use('/bookings', bookingRoutes);
