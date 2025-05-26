@@ -23,11 +23,11 @@ const getBookingById = async (id) => {
 };
 
 // Função para criar um nova reserva
-const createBooking = async (date, start_time, end_time, status) => {
+const createBooking = async (date, start_time, end_time, status, client_id, room_id) => {
   try {
     const result = await db.query(
-      'INSERT INTO booking (date, start_time, end_time, status) VALUES ($1, $2, $3, $4) RETURNING *',
-      [date, start_time, end_time, status]
+      'INSERT INTO booking (date, start_time, end_time, status, client_id, room_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+      [date, start_time, end_time, status, client_id, room_id]
     );
     return result.rows[0];
   } catch (error) {
@@ -36,11 +36,11 @@ const createBooking = async (date, start_time, end_time, status) => {
 };
 
 // Função para atualizar uma reserva por ID
-const updateBooking = async (id, date, start_time, end_time, status) => {
+const updateBooking = async (id, date, start_time, end_time, status, client_id, room_id) => {
   try {
     const result = await db.query(
-      'UPDATE booking SET date = $1, start_time = $2, end_time = $3, status = $4 WHERE id = $5 RETURNING *',
-      [date, start_time, end_time, status, id]
+      'UPDATE booking SET date = $1, start_time = $2, end_time = $3, status = $4, client_id = $5, room_id = $6 WHERE id = $7 RETURNING *',
+      [date, start_time, end_time, status, client_id, room_id, id]
     );
     return result.rows[0];
   } catch (error) {

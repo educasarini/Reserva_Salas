@@ -6,7 +6,7 @@
     <tr>
       <th>ID</th>
       <th>ID Cliente</th>
-      <th>ID Quarto</th>
+      <th>ID Sala</th>
       <th>Data</th>
       <th>Data de Início</th>
       <th>Data de Fim</th>
@@ -70,7 +70,7 @@
     } catch (error) {
       console.error(error);
       const tableBody = document.querySelector('#bookingTable tbody');
-      tableBody.innerHTML = '<tr><td colspan="3">Erro ao carregar redservas.</td></tr>';
+      tableBody.innerHTML = '<tr><td colspan="3">Erro ao carregar reservas.</td></tr>';
     }
   }
 

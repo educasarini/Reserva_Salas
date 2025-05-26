@@ -3,7 +3,7 @@
 const db = require('../config/db');
 
 // Função para obter todos as salas
-const getAllRoom = async () => {
+const getAllRooms = async () => {
   try {
     const result = await db.query('SELECT * FROM room');
     return result.rows;
@@ -59,7 +59,7 @@ const deleteRoom = async (id) => {
 };
 
 module.exports = {
-  getAllRoom,
+  getAllRooms,
   getRoomById,
   createRoom,
   updateRoom,
