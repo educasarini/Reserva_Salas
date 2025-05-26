@@ -18,8 +18,6 @@
 
 [3. Diagrama de Arquitetura MVC](#c3)
 
-[4. Configuração do BD, Migrações e Teste de APIs](#c4)
-
 <br>
 
 # <a name="c1"></a>1. Introdução
@@ -83,7 +81,7 @@ O diagrama a seguir ilustra visualmente essa arquitetura, demonstrando o fluxo d
 
 <sub>Figura X: Diagrama de Arquitetura MVC</sub>
 
-<img src="../assets/docs/wad/arquitetura-mvc.png" width="80%"> 
+<img src="../assets/docs/wad/Arquitetura MVC.drawio.svg"> 
 
 <sub>Fonte: Autoria própria (2025)</sub>
 
