@@ -34,6 +34,31 @@ Este repositório contém o código-fonte completo, diagramas, instruções para
 npm install
 ```
 
+3. **Configurar o Banco de Dados (PostgreSQL):**
+
+* Certifique-se de ter um servidor PostgreSQL rodando localmente (ou utilize um serviço de banco de dados em nuvem, como o Supabase, que você já mencionou no WAD).
+
+* Crie um banco de dados vazio com o nome que você definirá no seu arquivo de variáveis de ambiente (sugestão: `reserva_salas_db`).
+
+* Na raiz do projeto, crie um arquivo chamado `.env` e adicione as seguintes variáveis de ambiente, substituindo os valores pelos seus dados de conexão do PostgreSQL:
+        
+```env
+   DB_USER=seu_usuario_postgresql
+   DB_HOST=localhost # Ou o IP/URL do seu servidor PostgreSQL (ex: para Supabase, use a URL fornecida)
+   DB_DATABASE=reserva_salas_db # Nome do banco de dados que você criou/usará
+   DB_PASSWORD=sua_senha_postgresql
+   DB_PORT=5432 # Porta padrão do PostgreSQL. Se for Supabase, use a porta fornecida por eles.
+   DB_SSL=false # Defina como 'true' se estiver conectando via SSL (comum em serviços de nuvem como Supabase)
+```
+
+4. **Executar Migrações (Criação das Tabelas):**
+        
+- Para criar as tabelas `client`, `room` e `booking` (e outras que você tiver no seu esquema) no seu banco de dados, execute o script de migração. 
+        
+```bash
+   npm run init-db # Este comando executa o script SQL ou JS de criação do banco
+```
+
 ## Execução
 
 1. **Inicie o servidor com o comando:**
