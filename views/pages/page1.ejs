@@ -1,5 +1,25 @@
-<h2>Página 1</h2>
-<p>Lista de Usuários:</p>
+<h2>Tabela de Reservas</h2>
+
+<table border="1" id="bookingTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>ID Cliente</th>
+      <th>ID Sala</th>
+      <th>Data</th>
+      <th>Data de Início</th>
+      <th>Data de Fim</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="3">Carregando reservas...</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Tabela de Usuários</h2>
 
 <table border="1" id="usersTable">
   <thead>
@@ -19,6 +39,44 @@
 </table>
 
 <script>
+  // Função para buscar usuários da API e renderizar na tabela
+  async function fetchBookings() {
+    try {
+      const response = await fetch('/bookings');
+      if (!response.ok) {
+        throw new Error('Erro ao buscar reservas');
+      }
+      const bookings = await response.json();
+
+      const tableBody = document.querySelector('#bookingTable tbody');
+      tableBody.innerHTML = ''; // Limpa o conteúdo anterior
+
+      if (bookings.length > 0) {
+        bookings.forEach(booking => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${booking.id}</td>
+            <td>${booking.client_id}</td>
+            <td>${booking.room_id}</td>
+            <td>${booking.date}</td>
+            <td>${booking.start_time}</td>
+            <td>${booking.end_time}</td>
+            <td>${booking.status}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      } else {
+        tableBody.innerHTML = '<tr><td colspan="3">Nenhum usuário encontrado.</td></tr>';
+      }
+    } catch (error) {
+      console.error(error);
+      const tableBody = document.querySelector('#bookingTable tbody');
+      tableBody.innerHTML = '<tr><td colspan="3">Erro ao carregar reservas.</td></tr>';
+    }
+  }
+
+  // Chama a função ao carregar a página
+  fetchBookings();
   // Função para buscar usuários da API e renderizar na tabela
   async function fetchUsers() {
     try {
