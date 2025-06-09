@@ -133,6 +133,23 @@ ponderada_Bryan/
 * **`tests/`**: Testes automatizados.
 * **`views/`**: Views da aplicação (se aplicável).
 
+Estrutura de Endpoints da API
+-----------------------------
+| Método | Rota                | Descrição                |
+| ------ | ------------------- | ------------------------ |
+| GET    | `/api/clients`      | Listar todos os clientes |
+| POST   | `/api/clients`      | Criar novo cliente       |
+| PUT    | `/api/clients/:id`  | Atualizar cliente        |
+| DELETE | `/api/clients/:id`  | Excluir cliente          |
+| GET    | `/api/rooms`        | Listar todas as salas    |
+| POST   | `/api/rooms`        | Criar nova sala          |
+| PUT    | `/api/rooms/:id`    | Atualizar sala           |
+| DELETE | `/api/rooms/:id`    | Excluir sala             |
+| GET    | `/api/bookings`     | Listar todas as reservas |
+| POST   | `/api/bookings`     | Criar nova reserva       |
+| PUT    | `/api/bookings/:id` | Atualizar reserva        |
+| DELETE | `/api/bookings/:id` | Excluir reserva          |
+
 Contribuição
 ------------
 
