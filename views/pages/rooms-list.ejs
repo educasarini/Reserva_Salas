@@ -5,20 +5,12 @@
     <tr>
       <th>ID</th>
       <th>Nome</th>
+      <th>Capacidade</th>
       <th>Localização</th>
+      <th>Status</th>
+      <th>Ações</th>
     </tr>
   </thead>
   <tbody>
-    <% if (rooms.length === 0) { %>
-      <tr><td colspan="3">Nenhuma sala cadastrada.</td></tr>
-    <% } else { %>
-      <% rooms.forEach(r => { %>
-        <tr>
-          <td><%= r.id %></td>
-          <td><%= r.name %></td>
-          <td><%= r.location %></td>
-        </tr>
-      <% }) %>
-    <% } %>
   </tbody>
 </table>

@@ -66,9 +66,25 @@ router.get('/clients/new', (req, res, next) => {
   });
 });
 
+// Formulário de Edição de Cliente
+router.get('/clients/:id/edit', async (req, res, next) => {
+  try {
+    const client = await clientService.getClientById(req.params.id);
+    res.render('pages/client-form', { client }, (err, html) => {
+      if (err) return next(err);
+      res.render('layout/main', {
+        pageTitle: 'Editar Cliente',
+        body: html
+      });
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 // Formulário de Nova Sala
 router.get('/rooms/new', (req, res, next) => {
-  res.render('pages/room-form', {}, (err, html) => {
+  res.render('pages/room-form', { room: null }, (err, html) => {
     if (err) return next(err);
     res.render('layout/main', {
       pageTitle: 'Nova Sala',
@@ -76,6 +92,23 @@ router.get('/rooms/new', (req, res, next) => {
     });
   });
 });
+
+// Formulário de Edição de Cliente
+router.get('/rooms/:id/edit', async (req, res, next) => {
+  try {
+    const room = await roomService.getRoomById(req.params.id);
+    res.render('pages/room-form', { room }, (err, html) => {
+      if (err) return next(err);
+      res.render('layout/main', {
+        pageTitle: 'Editar Sala',
+        body: html
+      });
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 // Formulário de Nova Reserva
 router.get('/bookings/new', (req, res, next) => {
@@ -86,6 +119,22 @@ router.get('/bookings/new', (req, res, next) => {
       body: html
     });
   });
+});
+
+// Formulário de Edição de Cliente
+router.get('/bookings/:id/edit', async (req, res, next) => {
+  try {
+    const booking = await bookingService.getBookingById(req.params.id);
+    res.render('pages/booking-form', { booking }, (err, html) => {
+      if (err) return next(err);
+      res.render('layout/main', {
+        pageTitle: 'Editar Reserva',
+        body: html
+      });
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;

@@ -1,8 +1,33 @@
-<h2>Nova Sala</h2>
+<h2><%= room ? 'Editar Sala' : 'Nova Sala' %></h2>
 <form id="roomForm">
-  <label>Nome: <input name="name" required></label><br>
-  <label>Localização: <input name="location" required></label><br>
-  <button type="submit">Salvar Sala</button>
+  <% if (room) { %>
+    <input type="hidden" name="id" value="<%= room.id %>">
+  <% } %>
+
+  <label>
+    Nome:  
+    <input name="name" 
+           value="<%= room?.name || '' %>" 
+           required>
+  </label><br>
+
+  <label>
+    Localização:  
+    <input name="location" 
+           value="<%= room?.location || '' %>" 
+           required>
+  </label><br>
+
+  <!-- NOVO CAMPO Capacity -->
+  <label>
+    Capacidade:  
+    <input type="number" name="capacity" 
+           value="<%= room?.capacity || '' %>" 
+           required>
+  </label><br>
+
+  <button type="submit">
+    <%= room ? 'Atualizar Sala' : 'Salvar Sala' %>
+  </button>
 </form>
 <div id="roomMsg"></div>
-<script src="/js/room-form.js"></script>

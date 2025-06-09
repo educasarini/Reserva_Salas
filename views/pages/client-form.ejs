@@ -1,15 +1,18 @@
-<h2>Novo Cliente</h2>
+<h2><%= client ? 'Editar Cliente' : 'Novo Cliente' %></h2>
 <form id="clientForm">
-  <label>Nome:   <input name="name" required></label><br>
-  <label>Email:  <input type="email" name="email" required></label><br>
+  <% if (client) { %>
+    <!-- campo oculto com o id -->
+    <input type="hidden" name="id" value="<%= client.id %>">
+  <% } %>
+  <label>Nome:   <input name="name"  value="<%= client?.name || '' %>" required></label><br>
+  <label>Email:  <input type="email" name="email" value="<%= client?.email || '' %>" required></label><br>
   <label>Senha:  <input type="password" name="password" required></label><br>
   <label>Cargo:
     <select name="role" required>
-      <option value="user">Usuário</option>
-      <option value="admin">Administrador</option>
+      <option value="user"  <%= client?.role==='user' ? 'selected' : '' %>>Usuário</option>
+      <option value="admin" <%= client?.role==='admin'? 'selected' : '' %>>Administrador</option>
     </select>
   </label><br>
-
-  <button type="submit">Salvar Cliente</button>
+  <button type="submit"><%= client ? 'Atualizar' : 'Salvar' %></button>
 </form>
 <div id="clientMsg"></div>

@@ -1,16 +1,26 @@
-// Ao submeter o formulário de Sala, envia um POST para /rooms
-document.querySelector('#roomForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  // transforma os inputs do form em um objeto { name, location }
-  const body = Object.fromEntries(new FormData(e.target));
-  // envia para o backend
-  const res = await fetch('/rooms', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
+// room-form.js
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('#roomForm');
+  if (!form) return;  // sai se não houver #roomForm nessa página
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form));
+    const isEdit = !!data.id;
+    const url    = isEdit
+      ? `/api/rooms/${data.id}`
+      : '/api/rooms';
+    const method = isEdit ? 'PUT' : 'POST';
+    if (isEdit) delete data.id;
+
+    const res = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    document.getElementById('roomMsg').innerText = res.ok
+      ? isEdit ? 'Sala atualizada!' : 'Sala criada!'
+      : 'Erro ao processar.';
+    if (res.ok) window.location = '/rooms';
   });
-  // exibe mensagem de sucesso ou erro
-  document.getElementById('roomMsg').innerText = res.ok
-    ? 'Sala criada com sucesso!'
-    : 'Erro ao criar sala.';
 });

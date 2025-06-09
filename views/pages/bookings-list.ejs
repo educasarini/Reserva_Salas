@@ -3,23 +3,9 @@
 <table id="bookingsTable">
   <thead>
     <tr>
-      <th>ID</th><th>Cliente</th><th>Sala</th><th>Data</th><th>Início</th><th>Fim</th>
+      <th>ID</th><th>Cliente</th><th>Sala</th><th>Data</th><th>Início</th><th>Fim</th><th>Status</th><th>Ações</th>
     </tr>
   </thead>
   <tbody>
-    <% if (bookings.length === 0) { %>
-      <tr><td colspan="6">Nenhuma reserva.</td></tr>
-    <% } else { %>
-      <% bookings.forEach(b => { %>
-        <tr>
-          <td><%= b.id %></td>
-          <td><%= b.client_id %></td>
-          <td><%= b.room_id %></td>
-          <td><%= b.date %></td>
-          <td><%= b.start_time %></td>
-          <td><%= b.end_time %></td>
-        </tr>
-      <% }) %>
-    <% } %>
   </tbody>
 </table>
