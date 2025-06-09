@@ -3,25 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= pageTitle %></title>  
-  <style src="/css/style.css"></style>
+  <title><%= pageTitle %></title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <!-- Inclui o cabeçalho como um partial -->
-  <%- include('../components/header') %>
-
+  <header>
+    <h1>Sistema de Reservas</h1>
+    <nav>
+      <a href="/clients">Clientes</a> |
+      <a href="/rooms">Salas</a> |
+      <a href="/bookings">Reservas</a>
+    </nav>
+  </header>
   <main>
-    <!-- Renderiza o conteúdo da página específica -->
-    <%- include(content) %>
+    <%- body %>
   </main>
-
-  <footer>
-    <!-- Rodapé comum aqui -->
-    <p>Rodapé da Aplicação</p>
-  </footer>
-
-  <!-- Adicione scripts JS se necessário -->
-  <!-- <script src="/js/script.js"></script> -->
-  
+  <script src="/js/app.js"></script>
 </body>
 </html>

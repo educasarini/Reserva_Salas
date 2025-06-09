@@ -1,0 +1,20 @@
+<h2>Clientes</h2>
+<a href="/clients/new">+ Novo Cliente</a>
+<table id = "clientsTable">
+  <thead>
+    <tr><th>ID</th><th>Nome</th><th>Email</th></tr>
+  </thead>
+  <tbody>
+    <% if (clients.length === 0) { %>
+      <tr><td colspan="3">Nenhum cliente cadastrado.</td></tr>
+    <% } else { %>
+      <% clients.forEach(c => { %>
+        <tr>
+          <td><%= c.id %></td>
+          <td><%= c.name %></td>
+          <td><%= c.email %></td>
+        </tr>
+      <% }) %>
+    <% } %>
+  </tbody>
+</table>

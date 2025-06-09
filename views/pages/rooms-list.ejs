@@ -1,0 +1,24 @@
+<h2>Salas</h2>
+<a href="/rooms/new">+ Nova Sala</a>
+<table id="roomsTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Localização</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (rooms.length === 0) { %>
+      <tr><td colspan="3">Nenhuma sala cadastrada.</td></tr>
+    <% } else { %>
+      <% rooms.forEach(r => { %>
+        <tr>
+          <td><%= r.id %></td>
+          <td><%= r.name %></td>
+          <td><%= r.location %></td>
+        </tr>
+      <% }) %>
+    <% } %>
+  </tbody>
+</table>

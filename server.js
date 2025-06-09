@@ -13,17 +13,21 @@ db.connect()
 
     app.use(express.json());
 
-    const clientRoutes = require('./routes/clientRoutes');
-    app.use('/clients', clientRoutes);
-
-    const roomRoutes = require('./routes/roomRoutes'); 
-    app.use('/rooms', roomRoutes);                     
-    
-    const bookingRoutes = require('./routes/bookingRoutes');
-    app.use('/bookings', bookingRoutes);
+    // Servir CSS e JS estáticos da pasta views/css e views/script
+    app.use('/css', express.static(path.join(__dirname, 'views/css')));
+    app.use('/js',  express.static(path.join(__dirname, 'views/script')));
 
     const frontendRoutes = require('./routes/frontRoutes');
     app.use('/', frontendRoutes);
+
+    const clientRoutes = require('./routes/clientRoutes');
+    app.use('/api/clients', clientRoutes);
+
+    const roomRoutes = require('./routes/roomRoutes'); 
+    app.use('/api/rooms', roomRoutes);                     
+    
+    const bookingRoutes = require('./routes/bookingRoutes');
+    app.use('/api/bookings', bookingRoutes);
 
     // Middleware para lidar com erros de rota não encontrada
     app.use((req, res, next) => {
