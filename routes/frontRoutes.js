@@ -57,7 +57,7 @@ router.get('/bookings', async (req, res, next) => {
 
 // Formulário de Novo Cliente
 router.get('/clients/new', (req, res, next) => {
-  res.render('pages/client-form', {}, (err, html) => {
+  res.render('pages/client-form', { client: null }, (err, html) => {
     if (err) return next(err);
     res.render('layout/main', {
       pageTitle: 'Novo Cliente',
