@@ -330,19 +330,38 @@ form button[type="submit"] {
   }
 }
 
-/* Novo cliente/sala/reserva link */
-a[href$="/new"] {
+/* Cabeçalho da página com ações */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.page-header h2 {
+  margin-bottom: 0;
+  border-bottom: 2px solid var(--primary);
+}
+
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Botão de novo cliente/sala/reserva */
+.btn-new {
   display: inline-block;
   background-color: var(--secondary);
   color: var(--white);
   padding: 0.6rem 1.2rem;
   border-radius: var(--radius);
-  margin-bottom: 1rem;
   font-weight: 500;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
-a[href$="/new"]:hover {
+.btn-new:hover {
   background-color: var(--secondary-dark);
   transform: translateY(-2px);
   box-shadow: var(--shadow);
