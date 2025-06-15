@@ -1,11 +1,71 @@
-<h2>Nova Reserva</h2>
-<form id="bookingForm">
-  <label>Cliente ID: <input name="client_id" required></label><br>
-  <label>Sala ID:    <input name="room_id" required></label><br>
-  <label>Data:       <input type="date" name="date" required></label><br>
-  <label>Início:     <input type="time" name="start_time" required></label><br>
-  <label>Fim:        <input type="time" name="end_time" required></label><br>
-  <button type="submit">Salvar Reserva</button>
-</form>
-<div id="bookingMsg"></div>
+<div class="page-header">
+  <h2><i class="fas fa-calendar-plus"></i> <%= booking ? 'Editar Reserva' : 'Nova Reserva' %></h2>
+</div>
+
+<div class="card">
+  <form id="bookingForm" class="form">
+    <% if (booking && booking.id) { %>
+      <input type="hidden" name="id" value="<%= booking.id %>">
+    <% } %>
+    
+    <div class="form-group">
+      <label for="client_id">Cliente</label>
+      <select id="client_id" name="client_id" required>
+        <option value="">Selecione um cliente</option>
+        <% if (clients && clients.length > 0) { %>
+          <% clients.forEach(client => { %>
+            <option value="<%= client.id %>" <%= (booking && booking.client_id === client.id) ? 'selected' : '' %>>
+              <%= client.name %> (<%= client.email %>)
+            </option>
+          <% }); %>
+        <% } %>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="room_id">Sala</label>
+      <select id="room_id" name="room_id" required>
+        <option value="">Selecione uma sala</option>
+        <% if (rooms && rooms.length > 0) { %>
+          <% rooms.forEach(room => { %>
+            <option value="<%= room.id %>" <%= (booking && booking.room_id === room.id) ? 'selected' : '' %>>
+              <%= room.name %> (Capacidade: <%= room.capacity %>)
+            </option>
+          <% }); %>
+        <% } %>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="date">Data</label>
+      <input type="date" id="date" name="date" value="<%= booking ? booking.date : '' %>" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="start_time">Horário de Início</label>
+      <input type="time" id="start_time" name="start_time" value="<%= booking ? booking.start_time : '' %>" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="end_time">Horário de Término</label>
+      <input type="time" id="end_time" name="end_time" value="<%= booking ? booking.end_time : '' %>" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select id="status" name="status" required>
+        <option value="pendente" <%= (booking && booking.status === 'pendente') ? 'selected' : '' %>>Pendente</option>
+        <option value="confirmada" <%= (booking && booking.status === 'confirmada') ? 'selected' : '' %>>Confirmada</option>
+        <option value="recusada" <%= (booking && booking.status === 'recusada') ? 'selected' : '' %>>Recusada</option>
+      </select>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar</button>
+      <a href="/bookings" class="btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
+    </div>
+    
+    <div id="bookingMsg" class="form-message"></div>
+  </form>
+</div>
 <script src="/js/booking-form.js"></script>

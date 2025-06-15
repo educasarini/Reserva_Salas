@@ -1,10 +1,25 @@
-<h2>Clientes</h2>
-<a href="/clients/new">+ Novo Cliente</a>
-<table id = "clientsTable">
-  <thead>
-    <tr><th>ID</th><th>Nome</th><th>Email</th><th>Senha</th><th>Cargo</th><th>Ações</th></tr>
-  </thead>
-  <tbody>
-    <!-- app.js preenche sozinho -->
-  </tbody>
-</table>
+<div class="page-header">
+  <h2><i class="fas fa-users"></i> Clientes</h2>
+  <a href="/clients/new" class="btn-new"><i class="fas fa-plus"></i> Novo Cliente</a>
+</div>
+
+<div class="card">
+  <table id="clientsTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Senha</th>
+        <th>Cargo</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- app.js preenche sozinho -->
+      <tr>
+        <td colspan="6" class="loading-message">Carregando clientes...</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

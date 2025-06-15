@@ -111,21 +111,41 @@ router.get('/rooms/:id/edit', async (req, res, next) => {
 
 
 // Formulário de Nova Reserva
-router.get('/bookings/new', (req, res, next) => {
-  res.render('pages/booking-form', {}, (err, html) => {
-    if (err) return next(err);
-    res.render('layout/main', {
-      pageTitle: 'Nova Reserva',
-      body: html
+router.get('/bookings/new', async (req, res, next) => {
+  try {
+    // Buscar clientes e salas para preencher os selects
+    const clients = await clientService.getAllClients();
+    const rooms = await roomService.getAllRooms();
+    
+    // Passar booking como null e as listas de clientes e salas
+    res.render('pages/booking-form', { 
+      booking: null,
+      clients,
+      rooms 
+    }, (err, html) => {
+      if (err) return next(err);
+      res.render('layout/main', {
+        pageTitle: 'Nova Reserva',
+        body: html
+      });
     });
-  });
+  } catch (err) {
+    next(err);
+  }
 });
 
-// Formulário de Edição de Cliente
+// Formulário de Edição de Reserva
 router.get('/bookings/:id/edit', async (req, res, next) => {
   try {
     const booking = await bookingService.getBookingById(req.params.id);
-    res.render('pages/booking-form', { booking }, (err, html) => {
+    const clients = await clientService.getAllClients();
+    const rooms = await roomService.getAllRooms();
+    
+    res.render('pages/booking-form', { 
+      booking,
+      clients,
+      rooms 
+    }, (err, html) => {
       if (err) return next(err);
       res.render('layout/main', {
         pageTitle: 'Editar Reserva',

@@ -1,16 +1,25 @@
-<h2>Salas</h2>
-<a href="/rooms/new">+ Nova Sala</a>
-<table id="roomsTable">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nome</th>
-      <th>Capacidade</th>
-      <th>Localização</th>
-      <th>Status</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
+<div class="page-header">
+  <h2><i class="fas fa-door-open"></i> Salas</h2>
+  <a href="/rooms/new" class="btn-new"><i class="fas fa-plus"></i> Nova Sala</a>
+</div>
+
+<div class="card">
+  <table id="roomsTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Capacidade</th>
+        <th>Localização</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- app.js preenche sozinho -->
+      <tr>
+        <td colspan="6" class="loading-message">Carregando salas...</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

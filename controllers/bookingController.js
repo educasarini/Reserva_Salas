@@ -26,8 +26,8 @@ const getBookingById = async (req, res) => {
 
 const createBooking = async (req, res) => {
   try {
-    const { date, start_time, end_time, status, client_id, room_id} = req.body;
-    const newBooking = await bookingService.createBooking(date, start_time, end_time, status, client_id, room_id);
+    const bookingData = req.body;
+    const newBooking = await bookingService.createBooking(bookingData);
     res.status(201).json(newBooking);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -36,8 +36,8 @@ const createBooking = async (req, res) => {
 
 const updateBooking = async (req, res) => {
   try {
-    const { date, start_time, end_time, status, client_id, room_id } = req.body;
-    const updatedBooking = await bookingService.updateBooking(req.params.id, date, start_time, end_time, status, client_id, room_id);
+    const bookingData = req.body;
+    const updatedBooking = await bookingService.updateBooking(req.params.id, bookingData);
     if (updatedBooking) {
       res.status(200).json(updatedBooking);
     } else {

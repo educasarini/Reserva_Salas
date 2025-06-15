@@ -1,33 +1,41 @@
-<h2><%= room ? 'Editar Sala' : 'Nova Sala' %></h2>
-<form id="roomForm">
-  <% if (room) { %>
-    <input type="hidden" name="id" value="<%= room.id %>">
-  <% } %>
+<div class="page-header">
+  <h2><i class="fas fa-door-open"></i> <%= room ? 'Editar Sala' : 'Nova Sala' %></h2>
+</div>
 
-  <label>
-    Nome:  
-    <input name="name" 
-           value="<%= room?.name || '' %>" 
-           required>
-  </label><br>
-
-  <label>
-    Localização:  
-    <input name="location" 
-           value="<%= room?.location || '' %>" 
-           required>
-  </label><br>
-
-  <!-- NOVO CAMPO Capacity -->
-  <label>
-    Capacidade:  
-    <input type="number" name="capacity" 
-           value="<%= room?.capacity || '' %>" 
-           required>
-  </label><br>
-
-  <button type="submit">
-    <%= room ? 'Atualizar Sala' : 'Salvar Sala' %>
-  </button>
-</form>
-<div id="roomMsg"></div>
+<div class="card">
+  <form id="roomForm" class="form">
+    <% if (room) { %>
+      <input type="hidden" name="id" value="<%= room.id %>">
+    <% } %>
+    
+    <div class="form-group">
+      <label for="name">Nome da Sala</label>
+      <input id="name" name="name" value="<%= room?.name || '' %>" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="capacity">Capacidade</label>
+      <input type="number" id="capacity" name="capacity" value="<%= room?.capacity || '' %>" required min="1">
+    </div>
+    
+    <div class="form-group">
+      <label for="location">Localização</label>
+      <input id="location" name="location" value="<%= room?.location || '' %>" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="available">Disponibilidade</label>
+      <select id="available" name="available" required>
+        <option value="true" <%= room?.available ? 'selected' : '' %>>Disponível</option>
+        <option value="false" <%= room?.available === false ? 'selected' : '' %>>Indisponível</option>
+      </select>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar</button>
+      <a href="/rooms" class="btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
+    </div>
+    
+    <div id="roomMsg" class="form-message"></div>
+  </form>
+</div>

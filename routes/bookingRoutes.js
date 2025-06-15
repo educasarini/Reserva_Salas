@@ -25,16 +25,16 @@ router.get('/:id', async (req, res, next) => {
 // Criar nova reserva (Create)
 router.post('/', async (req, res, next) => {
   try {
-    const { client_id, room_id, date, start_time, end_time } = req.body;
-    const newBooking = await bookingService.createBooking({
-      client_id,
-      room_id,
-      date,
-      start_time,
-      end_time
-    });
+    const bookingData = req.body;
+    // Definir status padrão se não for fornecido
+    if (!bookingData.status) {
+      bookingData.status = 'pending';
+    }
+    
+    const newBooking = await bookingService.createBooking(bookingData);
     res.status(201).json(newBooking);
   } catch (err) {
+    console.error('Erro ao criar reserva:', err);
     next(err);
   }
 });
@@ -42,16 +42,19 @@ router.post('/', async (req, res, next) => {
 // Atualizar reserva existente (Update)
 router.put('/:id', async (req, res, next) => {
   try {
-    const { client_id, room_id, date, start_time, end_time } = req.body;
-    await bookingService.updateBooking(req.params.id, {
-      client_id,
-      room_id,
-      date,
-      start_time,
-      end_time
-    });
-    res.status(200).json({ message: 'Reserva atualizada' });
+    const bookingData = req.body;
+    // Definir status padrão se não for fornecido
+    if (!bookingData.status) {
+      bookingData.status = 'pending';
+    }
+    
+    const updatedBooking = await bookingService.updateBooking(req.params.id, bookingData);
+    if (!updatedBooking) {
+      return res.status(404).json({ error: 'Reserva não encontrada' });
+    }
+    res.status(200).json({ message: 'Reserva atualizada', data: updatedBooking });
   } catch (err) {
+    console.error('Erro ao atualizar reserva:', err);
     next(err);
   }
 });

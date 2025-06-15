@@ -23,8 +23,10 @@ const getBookingById = async (id) => {
 };
 
 // Função para criar um nova reserva
-const createBooking = async (date, start_time, end_time, status, client_id, room_id) => {
+const createBooking = async (bookingData) => {
   try {
+    const { date, start_time, end_time, status = 'pending', client_id, room_id } = bookingData;
+    
     const result = await db.query(
       'INSERT INTO booking (date, start_time, end_time, status, client_id, room_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
       [date, start_time, end_time, status, client_id, room_id]
@@ -36,8 +38,10 @@ const createBooking = async (date, start_time, end_time, status, client_id, room
 };
 
 // Função para atualizar uma reserva por ID
-const updateBooking = async (id, date, start_time, end_time, status, client_id, room_id) => {
+const updateBooking = async (id, bookingData) => {
   try {
+    const { date, start_time, end_time, status = 'pending', client_id, room_id } = bookingData;
+    
     console.log('Serviço updateBooking recebeu:', { id, date, start_time, end_time, status, client_id, room_id });
     
     const result = await db.query(
@@ -50,10 +54,8 @@ const updateBooking = async (id, date, start_time, end_time, status, client_id, 
       return null;
     }
     
-    console.log('Reserva atualizada com sucesso:', result.rows[0]);
     return result.rows[0];
   } catch (error) {
-    console.error('Erro ao atualizar reserva:', error);
     throw new Error('Erro ao atualizar reserva: ' + error.message);
   }
 };
