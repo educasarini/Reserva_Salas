@@ -24,7 +24,7 @@ async function loadList(url, tableId) {
     const tdA = document.createElement('td');
     tdA.innerHTML = `
       <button onclick="window.location='/${tableId.replace('Table','')}/${item.id}/edit'">✏️</button>
-      <button onclick="deleteItem('${tableId}', ${JSON.stringify(item.id)})">🗑️</button>
+      <button onclick="deleteItem('${tableId}', '${item.id}')">🗑️</button>
     `;
     tr.appendChild(tdA);
     tbody.appendChild(tr);
@@ -33,16 +33,46 @@ async function loadList(url, tableId) {
 
 async function deleteItem(tableId, id) {
   if (!confirm('Confirma exclusão?')) return;
+  
   const endpoint = {
     clientsTable: '/api/clients',
     roomsTable:   '/api/rooms',
     bookingsTable:'/api/bookings'
   }[tableId];
-
-  const res = await fetch(`${endpoint}/${encodeURIComponent(id)}`, { method: 'DELETE' });
-  if (res.ok) {
-    loadList(endpoint, tableId);
-  } else {
-    alert('Erro ao excluir.');
+  
+  if (!endpoint) {
+    console.error('Endpoint não encontrado para tableId:', tableId);
+    alert('Erro: tipo de tabela inválido');
+    return;
+  }
+  
+  console.log('Deletando:', { tableId, endpoint, id });
+  
+  try {
+    const res = await fetch(`${endpoint}/${encodeURIComponent(id)}`, { 
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    let responseData;
+    try {
+      responseData = await res.json();
+    } catch (e) {
+      responseData = { error: await res.text() || 'Resposta inválida do servidor' };
+    }
+    
+    if (res.ok) {
+      console.log('Exclusão bem-sucedida:', responseData);
+      alert('Item excluído com sucesso!');
+      loadList(endpoint, tableId);
+    } else {
+      console.error('Erro ao excluir:', responseData);
+      alert(`Erro ao excluir: ${responseData.error || `Status ${res.status}`}`);
+    }
+  } catch (error) {
+    console.error('Erro na requisição:', error);
+    alert('Erro na requisição: ' + error.message);
   }
 }

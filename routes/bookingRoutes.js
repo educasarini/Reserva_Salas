@@ -60,8 +60,8 @@ router.put('/:id', async (req, res, next) => {
 // DELETE /api/clients/:id
 router.delete('/:id', async (req, res, next) => {
   try {
-    await clientService.deleteClient(req.params.id);
-    res.status(200).json({ message: 'Reserva excluído' });
+    await bookingService.deleteBooking(req.params.id);
+    res.status(200).json({ message: 'Reserva excluída' });
   } catch (err) {
     next(err);
   }

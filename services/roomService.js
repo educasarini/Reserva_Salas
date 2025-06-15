@@ -38,12 +38,22 @@ const createRoom = async (name, capacity, location, available) => {
 // Função para atualizar uma sala por ID
 const updateRoom = async (id, name, capacity, location, available) => {
   try {
+    console.log('Serviço updateRoom recebeu:', { id, name, capacity, location, available });
+    
     const result = await db.query(
       'UPDATE room SET name = $1, capacity = $2, location = $3, available = $4 WHERE id = $5 RETURNING *',
       [name, capacity, location, available, id]
     );
+    
+    if (result.rows.length === 0) {
+      console.log('Nenhuma sala encontrada para atualização com ID:', id);
+      return null;
+    }
+    
+    console.log('Sala atualizada com sucesso:', result.rows[0]);
     return result.rows[0];
   } catch (error) {
+    console.error('Erro ao atualizar sala:', error);
     throw new Error('Erro ao atualizar sala: ' + error.message);
   }
 };

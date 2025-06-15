@@ -38,12 +38,22 @@ const createClient = async (name, email, password, role) => {
 // Função para atualizar um usuário por ID
 const updateClient = async (id, name, email, password, role) => {
   try {
+    console.log('Serviço updateClient recebeu:', { id, name, email, password, role });
+    
     const result = await db.query(
       'UPDATE client SET name = $1, email = $2, password = $3, role = $4 WHERE id = $5 RETURNING *',
       [name, email, password, role, id]
     );
+    
+    if (result.rows.length === 0) {
+      console.log('Nenhum cliente encontrado para atualização com ID:', id);
+      return null;
+    }
+    
+    console.log('Cliente atualizado com sucesso:', result.rows[0]);
     return result.rows[0];
   } catch (error) {
+    console.error('Erro ao atualizar cliente:', error);
     throw new Error('Erro ao atualizar cliente: ' + error.message);
   }
 };
@@ -51,9 +61,25 @@ const updateClient = async (id, name, email, password, role) => {
 // Função para deletar um usuário por ID
 const deleteClient = async (id) => {
   try {
+    console.log('Tentando excluir cliente com ID:', id);
+    
+    // Verificar se existem reservas associadas a este cliente
+    const bookingCheck = await db.query('SELECT COUNT(*) FROM booking WHERE client_id = $1', [id]);
+    
+    if (parseInt(bookingCheck.rows[0].count) > 0) {
+      throw new Error('Não é possível excluir este cliente pois existem reservas associadas a ele');
+    }
+    
     const result = await db.query('DELETE FROM client WHERE id = $1 RETURNING *', [id]);
+    console.log('Resultado da exclusão:', result.rows);
+    
+    if (result.rows.length === 0) {
+      return null; // Cliente não encontrado
+    }
+    
     return result.rows[0];
   } catch (error) {
+    console.error('Erro ao deletar cliente:', error);
     throw new Error('Erro ao deletar cliente: ' + error.message);
   }
 };

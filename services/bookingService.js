@@ -38,12 +38,22 @@ const createBooking = async (date, start_time, end_time, status, client_id, room
 // Função para atualizar uma reserva por ID
 const updateBooking = async (id, date, start_time, end_time, status, client_id, room_id) => {
   try {
+    console.log('Serviço updateBooking recebeu:', { id, date, start_time, end_time, status, client_id, room_id });
+    
     const result = await db.query(
       'UPDATE booking SET date = $1, start_time = $2, end_time = $3, status = $4, client_id = $5, room_id = $6 WHERE id = $7 RETURNING *',
       [date, start_time, end_time, status, client_id, room_id, id]
     );
+    
+    if (result.rows.length === 0) {
+      console.log('Nenhuma reserva encontrada para atualização com ID:', id);
+      return null;
+    }
+    
+    console.log('Reserva atualizada com sucesso:', result.rows[0]);
     return result.rows[0];
   } catch (error) {
+    console.error('Erro ao atualizar reserva:', error);
     throw new Error('Erro ao atualizar reserva: ' + error.message);
   }
 };

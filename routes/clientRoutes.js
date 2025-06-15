@@ -10,21 +10,37 @@ router.put('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const { name, email, password, role } = req.body;
-    await clientService.updateClient(id, { name, email, password, role });
-    res.status(200).json({ message: 'Cliente atualizado' });
+    console.log('Rota PUT /clients/:id recebeu:', { id, body: req.body });
+    
+    const clientService = require('../services/clientService');
+    const updatedClient = await clientService.updateClient(id, name, email, password, role);
+    
+    if (!updatedClient) {
+      return res.status(404).json({ error: 'Cliente não encontrado' });
+    }
+    
+    res.status(200).json({ message: 'Cliente atualizado', data: updatedClient });
   } catch (err) {
-    next(err);
+    console.error('Erro na rota de atualização de cliente:', err);
+    res.status(400).json({ error: err.message });
   }
 });
 
 // Excluir Cliente (Delete)
-// DELETE /api/clients/:id
 router.delete('/:id', async (req, res, next) => {
   try {
-    await clientService.deleteClient(req.params.id);
-    res.status(200).json({ message: 'Cliente excluído' });
+    console.log('Recebida solicitação para excluir cliente:', req.params.id);
+    const clientService = require('../services/clientService'); // Garantir que o serviço está disponível
+    const result = await clientService.deleteClient(req.params.id);
+    
+    if (!result) {
+      return res.status(404).json({ error: 'Cliente não encontrado' });
+    }
+    
+    res.status(200).json({ message: 'Cliente excluído', data: result });
   } catch (err) {
-    next(err);
+    console.error('Erro na rota de exclusão de cliente:', err);
+    res.status(400).json({ error: err.message });
   }
 });
 

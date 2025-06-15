@@ -12,8 +12,35 @@ const pool = new Pool({
   ssl: isSSL ? { rejectUnauthorized: false } : false,
 });
 
-// module.exports = pool;
+// Adicione logs para depuração
+const query = async (text, params) => {
+  try {
+    console.log('Executando query:', { text, params });
+    const start = Date.now();
+    const res = await pool.query(text, params);
+    const duration = Date.now() - start;
+    console.log('Query executada:', { text, duration, rows: res.rowCount });
+    return res;
+  } catch (error) {
+    console.error('Erro na execução da query:', error);
+    throw error;
+  }
+};
+
 module.exports = {
-  query: (text, params) => pool.query(text, params),
-  connect: () => pool.connect(),
+  query,
+  connect: () => {
+    return new Promise((resolve, reject) => {
+      pool.connect((err, client, release) => {
+        if (err) {
+          console.error('Erro ao conectar ao banco de dados:', err);
+          reject(err);
+          return;
+        }
+        console.log('Conexão com o banco de dados estabelecida');
+        release();
+        resolve();
+      });
+    });
+  }
 };

@@ -67,7 +67,7 @@ router.put('/:id', async (req, res, next) => {
 // DELETE /api/clients/:id
 router.delete('/:id', async (req, res, next) => {
   try {
-    await clientService.deleteClient(req.params.id);
+    await roomService.deleteRoom(req.params.id);
     res.status(200).json({ message: 'Sala excluído' });
   } catch (err) {
     next(err);
